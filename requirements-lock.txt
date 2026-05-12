@@ -1,0 +1,6 @@
+numpy==1.26.4
+pandas==2.2.2
+pyarrow==16.1.0
+PySide6==6.7.2
+yfinance==0.2.54
+PyYAML==6.0.2
