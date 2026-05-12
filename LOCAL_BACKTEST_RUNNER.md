@@ -4,8 +4,8 @@
 
 ## CLI example
 
-```bash
-python runtime/run_backtest.py --start 2025-04-01 --end 2026-03-31 --api-file api.txt --config local_backtest_config.example.json --frequency monthly
+```powershell
+python .\runtime\run_backtest.py --start 2025-04-01 --end 2026-03-31 --api-file .\api.txt --config .\local_backtest_config.example.json --frequency monthly
 ```
 
 ## Credential file
@@ -21,3 +21,6 @@ api_key=xxxx
 - Supports the formula-driven composite engine
 - Does not support the removed precomputed private strategy path
 - Uses the repository `12-1 momentum` implementation
+
+For a smaller onboarding config, start with `configs/minimal_long_only.example.json`.
+No JPX or J-Quants source data is bundled with this repository.

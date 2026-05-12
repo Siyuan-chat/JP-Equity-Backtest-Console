@@ -1,9 +1,10 @@
 """
 Runtime wrapper for the JP equity attention / crowding factor.
 
-This module is a thin extraction from attention.ipynb.  It keeps the original
+This module is a thin extraction from attention.ipynb. It keeps the original
 logic based on abnormal monthly volume and turnover, while adding the standard
-factor entry point and minimal/detail outputs for a main Colab control notebook.
+factor entry point and minimal/detail outputs used by the local GUI and CLI
+research workflows in this repository.
 """
 
 from __future__ import annotations

@@ -96,16 +96,16 @@ This script:
 
 Manual install is also possible:
 
-```bash
+```powershell
 python -m venv .venv
-.venv\Scripts\python -m pip install --upgrade pip
-.venv\Scripts\python -m pip install -r requirements-lock.txt
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install -r requirements-lock.txt
 ```
 
 ### GUI
 
-```bash
-python runtime/run_gui.py
+```powershell
+python .\runtime\run_gui.py
 ```
 
 Then:
@@ -137,6 +137,11 @@ Main Python packages are listed in `requirements.txt`:
 - `yfinance`
 - `PyYAML`
 
+`yfinance` is used only for optional external benchmark or fallback paths. The
+core Japanese equity research flow still depends on user-prepared local
+J-Quants and JPX-style cache tables, and this repository does not bundle or
+redistribute any licensed market data.
+
 ## Example research question
 
 Example question:
@@ -151,8 +156,8 @@ In this repository, a user can configure the formula, choose a monthly rebalance
 
 ## CLI
 
-```bash
-python runtime/run_backtest.py --start 2019-04-01 --end 2023-03-31 --api-file api.txt --config local_backtest_config.example.json --frequency monthly
+```powershell
+python .\runtime\run_backtest.py --start 2019-04-01 --end 2023-03-31 --api-file .\api.txt --config .\local_backtest_config.example.json --frequency monthly
 ```
 
 Supported `api.txt` format:
@@ -188,6 +193,13 @@ Typical outputs include:
 - regime and allocation diagnostics
 - performance summaries and time series
 
+## Config examples
+
+- Start with `configs/minimal_long_only.example.json` if you want a smaller,
+  easier-to-read long-only example.
+- Move to `local_backtest_config.example.json` when you want the fuller set of
+  research controls, including optional short-leg and richer regime settings.
+
 ## Repository layout
 
 ### Entry points
@@ -200,6 +212,17 @@ Typical outputs include:
   - starts the PySide6 desktop application
 - `runtime/run_backtest.py`
   - thin CLI entrypoint that delegates to `runtime/local_backtest_runner.py`
+
+### Config and examples
+
+- `configs/minimal_long_only.example.json`
+  - minimal long-only configuration example for first-time readers
+- `local_backtest_config.example.json`
+  - fuller research configuration with additional options
+- `examples/README.md`
+  - synthetic schema demo guide with fictitious local cache samples
+- `examples/synthetic_data/`
+  - tiny fictional CSV files showing the expected local cache shapes
 
 ### Orchestration and engine
 
@@ -621,6 +644,26 @@ This repository is a research tool built around user-managed local data caches a
 Before publishing outputs or derived services, read:
 
 - [DISCLAIMER.md](./DISCLAIMER.md)
+
+## Portfolio / Recruiter Notes
+
+This project is also intended to be a portfolio-quality example of:
+
+- Python data engineering for local financial research pipelines
+- factor research workflow design
+- point-in-time data handling and cache validation
+- GUI and CLI productization for reproducible analysis
+- financial data compliance awareness and boundary-setting
+
+It remains a research and learning project. It is not investment advice, does
+not include a real execution stack, and does not bundle commercial market data.
+
+## Synthetic demo
+
+If you do not have J-Quants access yet, see [examples/README.md](./examples/README.md).
+The synthetic example is a schema and workflow demo built from fictional data.
+It is meant to help readers understand file layout and expected inputs, not to
+represent real market behavior or validated strategy results.
 
 ## Security and secrets
 

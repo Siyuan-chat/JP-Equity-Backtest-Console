@@ -1,16 +1,12 @@
 """
-Linear factor compositor for JP small-cap research in Google Colab.
+Composite factor scoring utilities for JP Equity Backtest Console.
 
-What this script does
-1. Shows a small Colab UI for weight inputs and formula guidance.
-2. Uploads factor CSVs produced by upstream notebooks.
-3. Merges factor files on ticker/code.
-4. Runs linear scoring:
-   Score = w_q * Q + w_v * V + w_m * M + w_ts * TS + w_b * B + w_t * T + w_r * REV
-5. Runs QA / freshness / missing-data checks.
-6. Exports ranking, QA, and flagged rows CSV files.
+This module standardizes factor outputs, checks freshness and missingness,
+preprocesses factor values, and evaluates configurable composite score formulas.
 
-Designed for Colab, but most core functions also work in a normal Python session.
+It also preserves optional notebook-oriented helpers for CSV upload and
+ipywidgets-based exploration without changing the main local GUI and CLI
+workflows used by this repository.
 """
 
 from __future__ import annotations
@@ -1243,8 +1239,9 @@ def run_factor_composite_from_frames(
     Run the factor compositor from in-memory factor outputs.
 
     Values in factor_frames may be either DataFrames or factor result dicts
-    returned by run_*_factor functions.  This entry point is intended for the
-    main Colab control notebook so it can avoid CSV upload handoffs.
+    returned by run_*_factor functions.  This entry point is intended for
+    notebook-style or scripted local workflows that want to avoid CSV upload
+    handoffs.
     """
     if not factor_frames:
         raise ValueError("factor_frames is empty.")
@@ -1336,7 +1333,7 @@ def run_factor_composite_from_prepared_frame(
 
 def launch_factor_compositor_ui() -> None:
     if widgets is None:
-        raise RuntimeError("ipywidgets is required for the Colab UI.")
+        raise RuntimeError("ipywidgets is required for the optional notebook UI.")
 
     show_formula_help()
 
@@ -1414,6 +1411,6 @@ Score  = w_q * Q + w_v * V + w_m * M + w_ts * TS + w_b * B + w_t * T + w_r * REV
 
 
 if __name__ == "__main__":
-    print("Use this script in Colab with:")
+    print("Use this script in a notebook session with:")
     print("from factor_composite import launch_factor_compositor_ui")
     print("launch_factor_compositor_ui()")

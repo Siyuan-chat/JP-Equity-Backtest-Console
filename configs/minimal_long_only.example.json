@@ -1,0 +1,81 @@
+{
+  "initial_capital": 100000000,
+  "cache": {
+    "save_format": "parquet",
+    "strict_cache_validation": false,
+    "debug_dump_cache_summary": false,
+    "include_margin": true,
+    "margin_optional": true,
+    "include_financials": true,
+    "include_topix_index": true,
+    "include_nikkei_index": true,
+    "allow_missing_market_cap": false,
+    "market_cap_fallback": "disabled",
+    "force_rebuild_cache": false
+  },
+  "rules": {
+    "market_cap": {
+      "mode": "rank",
+      "rank_min": 200,
+      "rank_max": 500
+    },
+    "liquidity": {
+      "lookback_days": 60,
+      "min_avg_daily_volume": 0
+    },
+    "volatility": {
+      "lookback_days": 60,
+      "max_annualized_volatility": 1.2
+    },
+    "selection": {
+      "top_n_if_over_200": 500,
+      "sort_by": "market_cap_desc"
+    }
+  },
+  "backtest": {
+    "target_count": 10,
+    "candidate_pool_count": 50,
+    "min_execution_price_coverage": 0.8,
+    "min_execution_price_count": 10,
+    "rebuild_targets_after_price_lookup": true,
+    "rescale_partial_target_weights": false,
+    "record_missing_execution_prices": true,
+    "max_gross_exposure": 1.0,
+    "enable_short_leg": false,
+    "transaction_cost_bps": 10.0,
+    "slippage_bps": 5.0,
+    "execution_price": "close",
+    "signal_execution_lag_days": 1,
+    "lot_size": 100,
+    "round_lots": false,
+    "allow_yfinance_fallback": false,
+    "risk_index_code": "TOPIX",
+    "use_risk_gating": false,
+    "benchmark_index_codes": [
+      "TOPIX",
+      "NIKKEI225"
+    ],
+    "include_sp500_benchmark": true,
+    "sp500_yfinance_ticker": "^GSPC",
+    "composite_formula": "w_q*Q + w_v*V + w_m*M + w_ts*TS + w_b*B + w_t*T + w_r*REV",
+    "composite_weights": {
+      "w_q": 0.2,
+      "w_v": 0.2,
+      "w_m": 0.2,
+      "w_ts": 0.15,
+      "w_b": 0.1,
+      "w_t": 0.1,
+      "w_r": 0.1
+    },
+    "portfolio_constraints": {
+      "max_names_per_sector": 2
+    },
+    "allocation_gate_config": {
+      "enabled": false,
+      "mode": "matrix",
+      "risk_override_threshold": 3,
+      "severe_risk_score_threshold": 4,
+      "defensive_regime": "riskoff_highvol"
+    }
+  }
+}

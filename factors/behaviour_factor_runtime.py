@@ -1,9 +1,10 @@
 """
 Runtime wrapper for the JP equity behaviour / credit crowding factor.
 
-Behaviour requires margin/credit data.  There is intentionally no yfinance
+Behaviour requires margin/credit data. There is intentionally no yfinance
 fallback here: pass config["behaviour_loader"] or config["jquants_client"] so
-the main Colab notebook can provide J-Quants-backed data via jquants_api_key.
+the local backtest console can provide J-Quants-backed inputs via
+jquants_api_key.
 """
 
 from __future__ import annotations

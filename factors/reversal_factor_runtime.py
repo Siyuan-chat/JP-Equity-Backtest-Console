@@ -1,10 +1,10 @@
 """
 Runtime wrapper for the JP equity short-term reversal factor.
 
-This module is intentionally small and close to reverse.ipynb.  It preserves
+This module is intentionally small and close to reverse.ipynb. It preserves
 the notebook's skip-5 / 20-day reversal calculation while adding a stable
 function entry point and a minimal/detail output contract for orchestration
-from a main Colab notebook.
+from the local GUI and CLI workflows in this repository.
 """
 
 from __future__ import annotations

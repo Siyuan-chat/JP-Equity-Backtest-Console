@@ -1,0 +1,53 @@
+{
+  "note": "Schema-only example using fictional data. This file is for orientation and documentation, not for validated strategy output.",
+  "initial_capital": 1000000,
+  "cache": {
+    "save_format": "csv",
+    "include_margin": false,
+    "include_financials": false,
+    "include_topix_index": true,
+    "include_nikkei_index": false,
+    "force_rebuild_cache": false
+  },
+  "rules": {
+    "market_cap": {
+      "mode": "rank",
+      "rank_min": 1,
+      "rank_max": 3
+    },
+    "liquidity": {
+      "lookback_days": 20,
+      "min_avg_daily_volume": 0
+    },
+    "volatility": {
+      "lookback_days": 20,
+      "max_annualized_volatility": 2.0
+    },
+    "selection": {
+      "top_n_if_over_200": 3,
+      "sort_by": "market_cap_desc"
+    }
+  },
+  "backtest": {
+    "target_count": 2,
+    "candidate_pool_count": 3,
+    "max_gross_exposure": 1.0,
+    "enable_short_leg": false,
+    "transaction_cost_bps": 10.0,
+    "slippage_bps": 5.0,
+    "execution_price": "close",
+    "signal_execution_lag_days": 1,
+    "allow_yfinance_fallback": false,
+    "use_risk_gating": false,
+    "composite_formula": "w_q*Q + w_v*V + w_m*M",
+    "composite_weights": {
+      "w_q": 0.4,
+      "w_v": 0.3,
+      "w_m": 0.3,
+      "w_ts": 0.0,
+      "w_b": 0.0,
+      "w_t": 0.0,
+      "w_r": 0.0
+    }
+  }
+}
