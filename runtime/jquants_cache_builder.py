@@ -985,13 +985,18 @@ def detect_payload_format(content: bytes, content_type: str = "", name: str = ""
 def _looks_like_csv_text(sample: bytes) -> bool:
     if not sample:
         return False
-    try:
-        text = sample.decode("utf-8-sig")
-    except UnicodeDecodeError:
+    text = ""
+    for encoding in ("utf-8-sig", "cp932"):
         try:
-            text = sample.decode("cp932")
+            text = sample.decode(encoding)
+            break
         except UnicodeDecodeError:
-            return False
+            continue
+    if not text:
+        # A fixed-size sample may cut a multibyte character at its boundary,
+        # which must not be mistaken for binary content; only the first line
+        # is inspected, so lenient decoding is safe here.
+        text = sample.decode("utf-8-sig", errors="replace")
     first = text.splitlines()[0] if text.splitlines() else ""
     return "," in first or "\t" in first
 
